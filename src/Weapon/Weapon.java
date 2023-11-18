@@ -9,8 +9,8 @@ public abstract class Weapon {
         this.name =  name;
     }
 
-    public double getDamage() {
-        return damage;
+    public int getDamage() {
+        return (int) damage;
     }
 
     public void setDamage(double damage) {

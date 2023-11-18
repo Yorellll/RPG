@@ -15,6 +15,8 @@ public class Player {
 
     private int hp;
 
+    private int mana;
+
     private int damage;
 
     private Weapon weapon;
@@ -25,13 +27,18 @@ public class Player {
 
     private int magicRes;
 
-    public Player(String name, int hp, int damage, int magicDamage, int defense, int magicRes) {
+    public Player(String name, int hp, int mana, int damage, int magicDamage, int defense, int magicRes) {
         this.name = name;
+        this.mana = mana;
         this.hp = hp;
         this.damage = damage;
         this.magicDamage = magicDamage;
         this.defense = defense;
         this.magicRes = magicRes;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public void addHp(int hp){
@@ -41,6 +48,16 @@ public class Player {
     public void decreaseHp(int hp){
         this.hp -= hp;
     }
+
+    public int getHp(){return this.hp;}
+
+    public int getMana(){return this.mana;}
+
+    public void setMana(int mana){this.mana = mana;}
+
+    public void addMana(int mana){this.mana+=mana;}
+
+    public void decreaseMana(int mana){this.mana-=mana;}
 
     public void setWeapon(Weapon newWeapon){
         this.weapon = newWeapon;
@@ -117,15 +134,27 @@ public class Player {
         this.magicRes -= magicRes;
     }
 
+
+
     public void attack(Obstacle obs){
         int dmgTaken;
         if(this.getDamage() > this.getMagicDamage()){
             dmgTaken = (this.getDamage() - obs.getDefense());
+            this.mana -=5;
         }else {
             dmgTaken = this.getMagicDamage() - obs.getMagicRes();
+            this.mana -=5;
         }
 
         obs.decreaseHp(dmgTaken);
+    }
+
+    public void heal(){
+        this.hp+=5;
+    }
+
+    public void healMana(){
+        this.mana+=10;
     }
 
     public void buy(Store shop, Weapon choosenWeapon){
@@ -135,8 +164,35 @@ public class Player {
                 if(this.getMoney() > choosenWeapon.getPrice()){
                     this.decreaseMoney(choosenWeapon.getPrice());
                     this.weapon = choosenWeapon;
-                }else {System.out.println("Vous n'avez pas assez d'argent");}
+                    this.addDamage(choosenWeapon.getDamage());
+                    System.out.println("Voici maintenant vos dégâts : " + this.getDamage());
+                }else {System.out.println("Vous n'avez pas assez d'argent, au revoir.");}
             }
+        }
+    }
+
+    public void battleGain(){
+        this.addXp(25);
+        this.lvlup();
+        this.addMoney(100);
+    }
+    public void lvlup(){
+        if (this.xp % 100 == 0){
+            this.level += 1;
+            this.xp = 0;
+            this.addDamage(10);
+            this.addMgDam(10);
+            this.addDefense(10);
+            this.addMgRes(10);
+            this.addHp(10);
+            System.out.println("Congratulation you gain 1 level");
+            System.out.println();
+            System.out.println("Here is your new stat : " + "\n" +
+                    "Damage :" + this.getDamage() + "\n" +
+                    "Magic damage :" + this.getMagicDamage() + "\n" +
+                    "Defense :" + this.getDefense() + "\n" +
+                    "Magic resistance :" + this.getMagicDamage() + "\n" +
+                    "Hp :" + this.getHp() + "\n");
         }
     }
 
