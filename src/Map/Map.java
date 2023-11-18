@@ -130,7 +130,6 @@ public class Map {
                 p.battleGain();
                 break;
             case 5:
-                bs = new Boss();
                 Fight fiB = new Fight(bs, p);
                 fiB.menuFightMonster(bs, p);
                 bs.setHp(0);

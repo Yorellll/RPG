@@ -107,6 +107,7 @@ public class Fight {
             }
         }
         System.out.println("Fight complete");
+        ob.setHp(0);
     }
 
     public void destroyMonster(Monster ms){

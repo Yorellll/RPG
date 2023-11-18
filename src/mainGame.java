@@ -45,6 +45,8 @@ public class mainGame {
             default -> player;
         };
 
+        //A retirer après
+        player.addMoney(99999);
 
         System.out.println("Here is who you are :" + player.getClass() + "\n" + "Name : " + player.getName());
         System.out.println("Your hp : " +player.getHp() + "\n" +
@@ -83,8 +85,8 @@ public class mainGame {
         int targetColumn;
 
         //Début du jeu
-
-        while (bs.getHp() > 0){
+        int hpBoss = bs.getHp();
+        while (hpBoss > 0){
 
             System.out.print("Enter the new row for the player (The first top is 0): ");
             targetRow = scan.nextInt();
@@ -96,6 +98,7 @@ public class mainGame {
 
             myMap.movePlayer(targetRow, targetColumn);
 
+            hpBoss = bs.getHp();
 
         }
 
