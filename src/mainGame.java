@@ -45,8 +45,6 @@ public class mainGame {
             default -> player;
         };
 
-        //A retirer après
-        player.addMoney(99999);
 
         System.out.println("Here is who you are :" + player.getClass() + "\n" + "Name : " + player.getName());
         System.out.println("Your hp : " +player.getHp() + "\n" +
